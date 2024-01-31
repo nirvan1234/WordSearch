@@ -19,7 +19,7 @@ import {
   View,
 } from 'react-native'
 
-
+import SplashScreen from 'react-native-splash-screen';
 
 
 function App(){
@@ -27,9 +27,13 @@ function App(){
   const [words,setWords] = useState("");
   const [wordArr,setWordArr] = useState(["EGG", "MILK", "JAM","OATS" , "POHA"]);
   
+  useEffect(() => {
+    SplashScreen.hide();
+  }, [])
 
   useEffect(() =>{
     placeCorrectLetters(wordArr)
+ 
   },[])
 
   var characters = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz"; 
@@ -96,19 +100,11 @@ const performAct = () =>{
 
    <View style={{height:60, width:60,  backgroundColor:"#FF0000" , padding:5, margin:5}} key={indexrow}>
      
-     {words.split() === lopArr[indexCol].split(" ")[1][indexrow]  ?
+    
      <Text style={styles.sectionTitle}>
      {lopArr[indexCol] ? lopArr[indexCol].split(" ")[1][indexrow] ? lopArr[indexCol].split(" ")[1][indexrow] : characters.split("").slice(nrum, nrum +1):""}
     </Text>
-    :
-    <Text style={styles.sectionTitleTwo}>
-    {lopArr[indexCol] ? lopArr[indexCol].split(" ")[1][indexrow] ? lopArr[indexCol].split(" ")[1][indexrow] : characters.split("").slice(nrum, nrum +1):""}
-   </Text>
-      }
-        
-        <Text style={styles.sectionTitle}>
-        {lopArr[indexCol] ? lopArr[indexCol].split(" ")[1][indexrow] ? lopArr[indexCol].split(" ")[1][indexrow] : characters.split("").slice(nrum, nrum +1):""}
-       </Text>
+  
   
  </View>
    )}
