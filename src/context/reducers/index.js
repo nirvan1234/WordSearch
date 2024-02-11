@@ -34,7 +34,7 @@ function userReducer(state = initialState, action){
         case GET_PRODUCT_DETAILS:
             return {
                 ...state,
-                product: action.payload
+                productDetails: action.payload
 
         };
 

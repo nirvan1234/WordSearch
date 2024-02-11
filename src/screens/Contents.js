@@ -1,36 +1,83 @@
 import React,{useEffect, useState} from 'react'
 import {
-    Button,
-    SafeAreaView,
-    ScrollView,
-    StatusBar,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    useColorScheme,
-    View,
+  Button,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+  Dimensions,
+  ImageBackground,
+  FlatList
   } from 'react-native'
 
 import { useDispatch, useSelector } from 'react-redux';
 import {  getProductDetails} from '../context/actions'; 
+import ShowPlayListVideo from '../components/ShowPlayListVideo';
 
-const Contents = () => {
+const windowWidth = Dimensions.get('window').width;
 
-  const {name , age , product} = useSelector(state => state.userReducer);
+const Contents = ({route}) => {
+
+  const {productDetails} = useSelector(state => state.userReducer);
   const dispatch = useDispatch();
 
-  useEffect(()=>{
-    dispatch(getProductDetails("abcd"))
-   
 
+  
+
+  useEffect(()=>{
+    dispatch(getProductDetails(route.params))
+   
   },[])
 
   return (
-    <View>
-    <Text>Contents</Text>
-   </View>
-  )
-}
+    <View style={styles.container}>
+    
+    
+     <FlatList 
+     data={productDetails}
+     keyExtractor={(item) => item.id}
+     renderItem={({item}) => <ShowPlayListVideo  data={item} />}
+     
+     />
+    </View>
+   )
+  
+  }
+  
+
+
+const styles = StyleSheet.create({
+  container:{
+    flex:1,
+    backgroundColor:'#fff',
+    // alignItems:'center',
+    // justifyContent:'center'
+
+  },
+  ageText:{
+    width: windowWidth/1.5,
+    height: 60,
+    padding:10,
+    borderWidth: 1,
+    margin: 12,
+
+  },
+  nameText:{
+    width: windowWidth/1.5,
+    height: 60,
+    padding:10,
+    borderWidth: 1,
+    margin: 12,
+  },
+  textShow:{
+    fontSize:21,
+    fontWeight:400
+  }
+})
 
 export default Contents

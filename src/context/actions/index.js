@@ -39,15 +39,28 @@ export const getProduct = () =>{
 export const getProductDetails =(key) =>{
 
 
-    console.log(key);
+//     console.log(key);
+// const ITEM = `https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet%2CcontentDetails&playlistId=${key}&key=AIzaSyDzjbNLfFr8LS1v90XOy-oWLO8DUdTqZOI`
 
     try {
 
-        return  dispatch =>{
-            dispatch({
-                type: GET_PRODUCT_DETAILS,
-                payload: ""
-            })
+        return  async dispatch =>{
+            const result =  await fetch(`https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet%2CcontentDetails&playlistId=${key}&key=AIzaSyDzjbNLfFr8LS1v90XOy-oWLO8DUdTqZOI`,{
+                method:'GET',
+                headers:{
+                    'content-Type':'application/json',
+                }
+            });
+            const json = await result.json();
+           
+            if(json){
+                dispatch({
+                    type:GET_PRODUCT_DETAILS,
+                    payload: json.items
+                })
+            }else{
+              console.log("unable to fetch")
+            }
             
         }
         
