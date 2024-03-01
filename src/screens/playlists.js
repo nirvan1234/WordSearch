@@ -35,7 +35,6 @@ const Playlists = () => {
 
   useEffect(()=>{
     dispatch(getProduct())
-   
 
   },[])
 

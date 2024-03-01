@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "242224108078",
+    "project_id": "harekrishnaapp-a39f1",
+    "storage_bucket": "harekrishnaapp-a39f1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:242224108078:android:c25f203e3c18a76a70c5bf",
+        "android_client_info": {
+          "package_name": "com.harekrishnaapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxv627J6suxZn2eGzAd228lSV6-jLBN4c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
