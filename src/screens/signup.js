@@ -13,7 +13,7 @@ import {
     View,
   } from 'react-native'
 
-const Register = () => {
+const SignUP = () => {
   const [email , setEmail] = useState()
   const [password , setPassword] = useState()
   return (
@@ -87,4 +87,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default Register
+export default SignUP

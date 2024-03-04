@@ -1,4 +1,4 @@
-package com.awesomeproject
+package com.harekrishnaapp
 
 import android.content.Intent
 import android.os.Bundle

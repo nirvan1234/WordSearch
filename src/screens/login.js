@@ -27,7 +27,7 @@ import logo from '../assets/images/evolvePune.png'
             <View>
               <Pressable onPress={() =>{
             console.log("navigation")
-            navigation.navigate("register")
+            navigation.navigate("signup")
           }} style={styles.signIn}>
                 <Text style={styles.textSign}>Get Started
                 </Text>
@@ -47,7 +47,7 @@ const height_logo = height * 0.28;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#264653'
+    backgroundColor: 'rgba(200, 200, 0, 0.2)'
   },
   header: {
     flex: 2,
