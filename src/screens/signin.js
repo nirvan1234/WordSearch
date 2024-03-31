@@ -1,6 +1,4 @@
-import React,{useState} from 'react'
-import {Avatar} from 'react-native-paper';
- import { Auth } from '../utils'
+import React,{useState , useContext} from 'react'
 import { 
   View, 
   Text, 
@@ -10,48 +8,38 @@ import {
   StyleSheet ,
   StatusBar,
   Alert,
-  Pressable,
-  Dimensions,
-  Image
+  Pressable
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import Feather from 'react-native-vector-icons/Feather';
-import logo from '../assets/images/evolvePune.png';
-import AtRate from '../assets/images/attherate.png'
+
+import { Auth } from '../utils'
+import {Avatar} from 'react-native-paper';
 import { checkValidData } from '../utils/validate';
+import AtRate from '../assets/images/attherate.png'
+import { AuthContext } from '../utils/authContext';
 import lockIcon from '../assets/images/iconsLock.png'
 import unlockIcon from '../assets/images/iconsunlock.png'
 import checkIcon from '../assets/images/iconCheck.png'
 
+export default function SignIn({navigation}) {
 
-export default function Register({navigation}) {
+   const {setIsLoggedIn} = useContext(AuthContext);
 
   const [data, setData] = useState({
-    email: '',
+     email: '',
         password: '',
-        name:"",
         check_textInputChange: false,
         secureTextEntry: true,
         isValidUser: true,
         isValidPassword: true,
   })
-
   const [emailerrorMessage, setEmailErrorMessage] = useState("");
   const [passworderrorMessage, setPasswordErrorMessage] = useState("");
-  const [nameerrorMessage, setNameErrorMessage] = useState("");
 
 
   const handlePasswordChange = (val) => {
     setData({
       ...data,
       password: val
-    })
-  }
-  
-  const handleConfirmPasswordChange = (val) => {
-    setData({
-      ...data,
-      name: val
     })
   }
 
@@ -62,13 +50,27 @@ export default function Register({navigation}) {
     })
   }
 
-  const confirmUpdateSecureTextEntry = () =>{
-    setData({
-      ...data,
-      secureTextEntry: !data.secureTextEntry
+  const loginhandle = () =>{
+    console.log("bahar",data.email, data.password);
+    if(checkValidData("Test Name",data.email, data.password) == null){
+      console.log("andar");
+      Auth.signin(data.email, data.password);
+      if(Auth.signin(data.email, data.password) != "malformed or has expired"){
+         setIsLoggedIn(true)
+
+      }
       
-    })
+
+    }else if (checkValidData("Test Name" ,data.email, data.password) === "Email Id is not valid"){
+
+      setEmailErrorMessage(checkValidData("Test Name",data.email, data.password));
+
+    }else{
+      setPasswordErrorMessage(checkValidData("Test Name",data.email, data.password));
+    }
+   
   }
+
   const textInputChange = (val) =>{
       if(val.length !== 0){
           setData({
@@ -86,44 +88,23 @@ export default function Register({navigation}) {
       }
   }
 
-  const onPressRegister = ()=>{
-    console.log(checkValidData(data.name ,data.email, data.password))
-    if(checkValidData(data.name ,data.email, data.password) == null){
-
-      Auth.signUp(data.name ,data.email, data.password)
-      navigation.navigate('signin')
-
-    }else if (checkValidData(data.name ,data.email, data.password) === "Email Id is not valid"){
-
-      setEmailErrorMessage(checkValidData(data.name ,data.email, data.password));
-
-    }else if(checkValidData(data.name ,data.email, data.password) === "Name is not valid"){
-      setNameErrorMessage(checkValidData(data.name ,data.email, data.password));
-    }else{
-      setPasswordErrorMessage(checkValidData(data.name ,data.email, data.password));
-    }
-  
-   
-  }
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-      <Text style={styles.text_header}>Register Now! </Text>
-     
+      <Text style={styles.text_header}>Welcome ! </Text>
       </View>
       <View style={styles.footer}>
-        
       <Text style={styles.text_footer}>Email</Text>
       <View style={styles.action}>
       <Avatar.Icon  size={28} icon="email" /> 
+       
         <TextInput
           placeholder='Your Email' 
           style={styles.textInput}
           autoCapitalize='none'
           onChangeText={(val) => textInputChange(val)}/>
           {data.check_textInputChange? 
-           <Avatar.Image size={24} source={lockIcon} /> : null }
+           <Avatar.Image size={24} source={checkIcon} /> : null }
          
       </View>
       {
@@ -144,42 +125,20 @@ export default function Register({navigation}) {
           onPress={ updateSecureTextEntry}
           >
             {data.secureTextEntry ? 
-          <Avatar.Icon  size={28} icon="eye" /> :  
-          <Avatar.Icon  size={28} icon="eye-off" /> }
-          
+            <Avatar.Icon  size={28} icon="eye" /> :  
+            <Avatar.Icon  size={28} icon="eye-off" /> }
           </TouchableOpacity>
       </View>
       {
         passworderrorMessage != "" ? <Text style={styles.errorMessageStyle}>{passworderrorMessage}</Text> : null
       }
-      <Text style={[styles.text_footer,{
-        marginTop: 35
-      }]}>Full Name</Text>
-      <View style={styles.action}>
-      <Avatar.Icon  size={28} icon="account" /> 
-        <TextInput
-          placeholder='Your Full Name' 
-          style={styles.textInput}
-         
-          autoCapitalize='none'
-          onChangeText={(val) => handleConfirmPasswordChange(val)}/>
-          <TouchableOpacity
-          onPress={ confirmUpdateSecureTextEntry}
-          >
-            {/* {data.secureTextEntry ? 
-           <Avatar.Image size={24} source={unlockIcon} />:  
-           <Avatar.Image size={24} source={lockIcon} />} */}
-          </TouchableOpacity>
-      </View>
-      {
-        nameerrorMessage != "" ? <Text style={styles.errorMessageStyle}>{nameerrorMessage}</Text> : null
-      }
-      
 
       <TouchableOpacity>
              <View>
-             <Pressable  style={styles.signIn}  onPress={ onPressRegister}>
-           <Text style={[styles.textSign , { color: "#fff"}]}>Sign Up
+             <Pressable  
+             onPress={loginhandle}
+             style={styles.signIn}>
+           <Text style={[styles.textSign , { color: "#fff"}]}>Sign In
            </Text>
            
            </Pressable>
@@ -189,13 +148,13 @@ export default function Register({navigation}) {
       <TouchableOpacity>
              <View>
              <Pressable  
-             onPress={() =>  navigation.navigate('signin') }
+             onPress={ () => navigation.navigate('register')}
              style={[styles.signIn, {
                         borderColor: '#009387',
                         borderWidth: 1,
                         marginTop: 15
                     }]}>
-           <Text style={styles.textSign}>Sign In
+           <Text style={styles.textSign}>Sign Up
            </Text>
            
            </Pressable>
@@ -207,23 +166,10 @@ export default function Register({navigation}) {
   )
 }
 
-const { height } = Dimensions.get("screen");
-const height_logo = height * 0.28;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1, 
     backgroundColor: '#009387'
-  },
-  logo: {
-    width: height_logo,
-    height: height_logo
-  },
-  errorMessageStyle:{
-    padding:5,
-    fontSize:14,
-    color:"red"
-
   },
   header: {
       flex: 1,
@@ -243,6 +189,12 @@ const styles = StyleSheet.create({
       color: '#fff',
       fontWeight: 'bold',
       fontSize: 30
+  },
+  errorMessageStyle:{
+    padding:5,
+    fontSize:14,
+    color:"red"
+
   },
   text_footer: {
       color: '#05375a',
@@ -283,7 +235,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       borderRadius: 10,
       backgroundColor: "#5F9EA0",
-      marginTop:50
+      marginTop:60
   },
   textSign: {
       fontSize: 18,
@@ -305,12 +257,27 @@ const styles = StyleSheet.create({
 //     View,
 //   } from 'react-native'
 
-// const Register = () => {
+// const SignUP = () => {
 //   const [email , setEmail] = useState()
 //   const [password , setPassword] = useState()
+//   const [name , setName] = useState("")
 //   return (
 //     <View style={styles.container}>
 //     <Text style={styles.textContent}>Login/Register</Text>
+//     <TextInput 
+//     placeholder='Enter Name'
+//     onChangeText={(e) => setName(e)}
+//      style={{
+//       width:'90%',
+//       height:50,
+//       borderRadius:10,
+//       borderWidth:0.5,
+//       alignItems:"center",
+//       marginTop:100,
+//       alignSelf:"center",
+//       padding:10
+//      }}
+//     />
 //     <TextInput 
 //     placeholder='Enter Email'
 //     onChangeText={(e) => setEmail(e)}
@@ -340,7 +307,7 @@ const styles = StyleSheet.create({
 //      }}
 //     />
 //     <TouchableOpacity
-//     onPress={() => Auth.signin(email, password)}
+//     onPress={() => Auth.signUp(name ,email, password)}
 //     style={{
 //       width:"90%",
 //       height:50,
@@ -352,7 +319,7 @@ const styles = StyleSheet.create({
 //       alignItems:"center"
 //     }}
 //     >
-//       <Text style={{fontSize:20, color:"#000"}}>Login</Text>
+//       <Text style={{fontSize:20, color:"#000"}}>SignUP</Text>
 //     </TouchableOpacity>
 //    </View>
 //   )
@@ -379,4 +346,4 @@ const styles = StyleSheet.create({
 
 // })
 
-// export default Register
+// export default SignUP

@@ -8,7 +8,13 @@ import AuthNavigator from './authNavigator';
 const DrawerNavigator = () => {
     const drawer = createDrawerNavigator();
   return (
-    <drawer.Navigator initialRouteName='Welcome to Evolve Pune'>
+    <drawer.Navigator 
+    screenOptions={{
+         headerStyle:{
+          backgroundColor: 'rgba(200, 200, 0, 0.2)',
+         }
+        }}
+    initialRouteName='Welcome to Evolve Pune'>
     <drawer.Screen name="Welcome to Evolve Pune" component={HomeNavigator}></drawer.Screen>
     <drawer.Screen name="Account" component={AuthNavigator}></drawer.Screen>
     </drawer.Navigator>

@@ -3,9 +3,9 @@ import { useNavigation } from '@react-navigation/native';
 import {
   StyleSheet, Text, View, Dimensions, Image, TouchableOpacity, Pressable, Button
 } from 'react-native'
-
+import Icon from 'react-native-vector-icons/FontAwesome'; 
 import logo from '../assets/images/evolvePune.png'
- const  Login =  () => {
+ const  Landing =  () => {
 
   const navigation = useNavigation();
   
@@ -27,7 +27,7 @@ import logo from '../assets/images/evolvePune.png'
             <View>
               <Pressable onPress={() =>{
             console.log("navigation")
-            navigation.navigate("signup")
+            navigation.navigate("register")
           }} style={styles.signIn}>
                 <Text style={styles.textSign}>Get Started
                 </Text>
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   signIn: {
     width: 150,
     height: 40,
-    backgroundColor: '#264653',
+    backgroundColor: "#5F9EA0",
     justifyContent: 'center',
     alignItems: "center",
     borderRadius: 50,
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Login;
+export default Landing;
 
 
 
