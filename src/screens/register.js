@@ -5,6 +5,8 @@ import {
   View, 
   Text, 
   TouchableOpacity, 
+  SafeAreaView,
+  ScrollView,
   TextInput,
   Platform,
   StyleSheet ,
@@ -109,7 +111,8 @@ export default function Register({navigation}) {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={{flex:1}}>
+       <SafeAreaView style={styles.container}>
       <View style={styles.header}>
       <Text style={styles.text_header}>Register Now! </Text>
      
@@ -205,7 +208,9 @@ export default function Register({navigation}) {
       </TouchableOpacity>
       </View>
     
-    </View>
+    </SafeAreaView>
+    </ScrollView>
+   
   )
 }
 
@@ -228,7 +233,8 @@ const styles = StyleSheet.create({
 
   },
   header: {
-      flex: 1,
+      // flex: 1,
+      height:290,
       justifyContent: 'flex-end',
       paddingHorizontal: 20,
       paddingBottom: 50

@@ -3,7 +3,9 @@ import {
   View, 
   Text, 
   TouchableOpacity, 
+  ScrollView,
   TextInput,
+  SafeAreaView,
   Platform,
   StyleSheet ,
   StatusBar,
@@ -99,7 +101,8 @@ export default function SignIn({navigation}) {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView>
+       <SafeAreaView style={styles.container}>
       <View style={styles.header}>
       <Text style={styles.text_header}>Welcome ! </Text>
       </View>
@@ -172,7 +175,9 @@ export default function SignIn({navigation}) {
       </TouchableOpacity>
       </View>
     
-    </View>
+    </SafeAreaView>
+    </ScrollView>
+   
   )
 }
 
@@ -182,7 +187,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#009387'
   },
   header: {
-      flex: 1,
+   height:390,
       justifyContent: 'flex-end',
       paddingHorizontal: 20,
       paddingBottom: 50
