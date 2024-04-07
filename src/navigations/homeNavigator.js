@@ -23,9 +23,18 @@ const HomeNavigator = () => {
   const stack = createNativeStackNavigator();
 
   const MyComponent = () => (
-    <Button icon="camera" mode="contained" onPress={() => console.log('Pressed')}>
-      Press me
+    <View style={{ flexDirection:"row" , padding: 5 ,backgroundColor:'rgba(200, 200, 0, 0.2)',}}>
+      <View style={{margin:5}}>
+      <Button buttonColor='rgba(202,129,76,255)' mode="contained" onPress={() => console.log('Pressed')}>
+      PodCasts
     </Button>
+      </View>
+      <View style={{margin:5}}>
+      <Button style={{}}  buttonColor='rgba(202,129,76,255)' mode="contained" onPress={() => console.log('Pressed')}>
+     Songs
+   </Button>
+      </View>
+    </View>  
   );
   
   return (
@@ -44,6 +53,7 @@ const HomeNavigator = () => {
       <stack.Screen 
       options={{
         title: 'Playlists',
+        header: MyComponent,
         headerTintColor: 'royalblue',
          headerStyle: {
           backgroundColor: 'rgba(200, 200, 0, 0.2)',
@@ -54,6 +64,7 @@ const HomeNavigator = () => {
       <stack.Screen 
       options={{
         title: 'Playlists',
+        header: MyComponent,
         headerTintColor: 'royalblue',
          headerStyle: {
           backgroundColor: 'rgba(200, 200, 0, 0.2)'

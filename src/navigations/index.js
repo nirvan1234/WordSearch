@@ -5,13 +5,15 @@ import DrawerNavigator from './DrawerNavigator';
 import AuthNavigator from './authNavigator';
 import auth from '@react-native-firebase/auth';
 import { AuthContext } from '../utils/authContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const AppContainer = () => {
 
   const [intializing, setIntializing] = useState(true);
   const [user, setUser] = useState(null);
   const [authUser, setAuthUser] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const value ={
     authUser,
     setAuthUser,
@@ -20,11 +22,28 @@ const AppContainer = () => {
 }
 
 console.log(isLoggedIn);
-// const MyTheme = {
-//   colors: {
-//      background:'rgba(200, 200, 0, 0.2)',
-//     },
-//   }; 
+
+useEffect(() =>{
+  getData();
+},[])
+
+
+const getData = async () => {
+  try {
+    const value = await AsyncStorage.getItem('loginKey');
+    
+    if (value !== null) {
+      // value previously stored
+      console.log("storekey",{loginKey: value});
+
+      var isTrueSet = (value === 'true');
+      console.log("storekeyBool",isTrueSet);
+      setIsLoggedIn(isTrueSet);
+    }
+  } catch (e) {
+     console.log(e);
+  }
+};
   
 function onAuthStateChange(user){
      setUser(user)

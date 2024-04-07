@@ -14,6 +14,7 @@ import {
     ImageBackground,
     FlatList
   } from 'react-native'
+  import Shimmer from './Shimmer';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAge,setName , getProduct} from '../context/actions'; 
 import ShowPlayListItem from '../components/ShowPlayListItem';
@@ -43,29 +44,19 @@ const Playlists = () => {
 
   return (
    <View style={styles.container}>
-   
-    {/* <Text style={styles.textShow}>{name}</Text>
-    <Text style={styles.textShow}>{age}</Text>
+    {product.length === 0 ? 
+    <Shimmer />
+      :
+      <FlatList 
+      data={product}
+      keyExtractor={(item) => item.id}
+      renderItem={({item}) => <ShowPlayListItem  data={item} />}
+      
+      />
 
-    <TextInput 
-    placeholder='Please Enter your Name'
-    value={name}
-    onChangeText={ (value) => dispatch(setName(value))}
-    style={styles.ageText}
-
-    />
-    <TextInput 
-    placeholder='Please Enter your Age'
-    value={age}
-    onChangeText={ (value) => dispatch(setAge(value))}
-    style={styles.ageText}
-    /> */}
-    <FlatList 
-    data={product}
-    keyExtractor={(item) => item.id}
-    renderItem={({item}) => <ShowPlayListItem  data={item} />}
+    }
     
-    />
+    
    </View>
   )
 }
@@ -77,6 +68,26 @@ const styles = StyleSheet.create({
     // alignItems:'center',
     // justifyContent:'center'
 
+  },
+  mainContainer:{
+    height: 190,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: "#ffff",
+    opacity:0.9,
+    borderRadius: 15,
+    shadowOffset: {width: 0, height: 0},
+    shadowOpacity: 1,
+    shadowRadius: 8,
+    elevation: 8,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: 16,
+    paddingRight: 14,
+    marginTop: 6,
+    marginBottom: 6,
+    marginLeft: 16,
+    marginRight: 16,
   },
   ageText:{
     width: windowWidth/1.5,

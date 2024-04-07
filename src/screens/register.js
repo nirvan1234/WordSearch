@@ -24,6 +24,8 @@ import unlockIcon from '../assets/images/iconsunlock.png'
 import checkIcon from '../assets/images/iconCheck.png'
 
 
+
+
 export default function Register({navigation}) {
 
   const [data, setData] = useState({

@@ -18,6 +18,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import {  getProductDetails} from '../context/actions'; 
 import ShowPlayListVideo from '../components/ShowPlayListVideo';
+import Shimmer from './Shimmer';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -36,14 +37,18 @@ const Contents = ({route}) => {
 
   return (
     <View style={styles.container}>
-    
-    
-     <FlatList 
+
+      {productDetails.length === 0 ?
+      <Shimmer />
+      :
+      <FlatList 
      data={productDetails}
      keyExtractor={(item) => item.id}
      renderItem={({item}) => <ShowPlayListVideo  data={item} />}
      
      />
+      }
+    
     </View>
    )
   

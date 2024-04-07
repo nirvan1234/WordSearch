@@ -19,6 +19,7 @@ import { AuthContext } from '../utils/authContext';
 import lockIcon from '../assets/images/iconsLock.png'
 import unlockIcon from '../assets/images/iconsunlock.png'
 import checkIcon from '../assets/images/iconCheck.png'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function SignIn({navigation}) {
 
@@ -50,6 +51,15 @@ export default function SignIn({navigation}) {
     })
   }
 
+  const prefrences = async () =>{
+    try {
+      await AsyncStorage.setItem("loginKey", "true" );
+    } catch (error) {
+      console.log(error);  
+    }
+
+  }
+
   const loginhandle = () =>{
     console.log("bahar",data.email, data.password);
     if(checkValidData("Test Name",data.email, data.password) == null){
@@ -57,7 +67,7 @@ export default function SignIn({navigation}) {
       Auth.signin(data.email, data.password);
       if(Auth.signin(data.email, data.password) != "malformed or has expired"){
          setIsLoggedIn(true)
-
+         prefrences();
       }
       
 
